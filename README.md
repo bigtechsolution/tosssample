@@ -15,3 +15,10 @@
 
 - [node](https://github.com/tosspayments/brandpay-sample/tree/main/widget/node)
 - [php](https://github.com/tosspayments/brandpay-sample/tree/main/widget/php)# tosssample
+
+
+### 빅테크 테스트
+cd widget/node
+yarn
+node index.js 로 실행함
+
