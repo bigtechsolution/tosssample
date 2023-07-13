@@ -1,0 +1,22 @@
+<head>
+    <meta charset="utf-8" />
+    <title>브랜드페이로 결제하기</title>
+    <!-- 1. 스크립트 추가 -->
+    <script src="https://js.tosspayments.com/v1/brandpay"></script>
+</head>
+<script>
+  var clientKey = 'test_ck_7XZYkKL4MrjaGOZ6xNkV0zJwlEWR' // 테스트용 클라이언트 키
+  var customerKey = 'user1' // 내 상점에서 고객을 구분하기 위해 발급한 고객의 고유 ID
+
+  // 2. 브랜드페이 객체 생성
+  var brandpay = BrandPay(clientKey, customerKey, {
+    redirectUrl: 'http://localhost:4000/api/order/callback-auth',
+    ui: {
+      buttonStyle: 'full',
+      highlightColor: '#26C2E3',
+      labels: {
+        oneTouchPay: '내 상점 원터치결제',
+      },
+    },
+  })
+</script>
