@@ -56,7 +56,12 @@ async function updateAmount(e) {
 // 결제 하기
 async function handleSubmit(e) {
   e.preventDefault();
-
+  const paymentParams = {
+    orderId: 'orderId221117', // 주문에 대한 고유한 ID 값
+    orderName: '생수 외 1건', // 결제에 대한 주문명
+    successUrl: window.location.origin + '/success',
+    failUrl: window.location.origin + '/fail',
+  };
   // 위젯 결제 정보
   const widgetPaymentParams = paymentMethodsWidget.getPaymentParams();
 

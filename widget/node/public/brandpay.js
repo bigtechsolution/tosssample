@@ -1,11 +1,10 @@
 // API 키 설정
 // 문서: https://docs.tosspayments.com/guides/brandpay/integration#api-키-설정-및-sdk-준비
 const clientKey = 'test_ck_7XZYkKL4MrjaGOZ6xNkV0zJwlEWR';
-const customerKey = 'user_2'; // 상점에서 고객을 구분하기 위해 발급한 고객의 고유 ID로 변경하세요.
+const customerKey = '29c7337f-206f-464f-bd45-5b02fe6bf1fe'; // 상점에서 고객을 구분하기 위해 발급한 고객의 고유 ID로 변경하세요.
 
 // brandpay 초기화
 const brandpay = BrandPay(clientKey, customerKey, {
-  // redirectUrl: window.location.origin + '/callback-auth',
   redirectUrl : 'http://localhost:4000/api/order/callback-auth'
 });
 
@@ -41,6 +40,7 @@ async function initialize() {
 // document.querySelector('#button2').addEventListener('click', handleSubmit2);
 document.querySelector('#addPaymentMethod1').addEventListener('click', addPaymentMethod1);
 document.querySelector('#addPaymentMethod2').addEventListener('click', addPaymentMethod2);
+document.querySelector('#gotopay').addEventListener('click', gotopay);
 
 // 결제 금액 업데이트
 async function updateAmount(e) {
@@ -110,3 +110,22 @@ async function addPaymentMethod1(e) {
         }
       })
 }
+
+async function gotopay(e) {
+  paymentMethodsWidget = brandpay.createPaymentMethodsWidget({ amount: 50000 });
+  // 위젯 결제 정보
+  const widgetPaymentParams = paymentMethodsWidget.getPaymentParams();
+
+  console.info('widgetPaymentParams: ', widgetPaymentParams);
+  const paymentParams = {
+    orderId: 'orderId221117', // 주문에 대한 고유한 ID 값
+    orderName: '생수 외 1건', // 결제에 대한 주문명
+    successUrl: window.location.origin + '/success',
+    failUrl: window.location.origin + '/fail',
+  };
+  await brandpay.requestPayment({
+    ...paymentParams,
+    ...widgetPaymentParams,
+  });
+}
+
