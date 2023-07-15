@@ -42,8 +42,8 @@ async function initialize() {
 }
 
 document
-  .querySelector('#payment-form')
-  .addEventListener('submit', handleSubmit);
+    .querySelector('#payment-form')
+    .addEventListener('submit', handleSubmit);
 
 document.querySelector('#button').addEventListener('click', updateAmount);
 

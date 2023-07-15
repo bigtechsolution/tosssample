@@ -1,7 +1,7 @@
 // API 키 설정
 // 문서: https://docs.tosspayments.com/guides/brandpay/integration#api-키-설정-및-sdk-준비
 const clientKey = 'test_ck_7XZYkKL4MrjaGOZ6xNkV0zJwlEWR';
-const customerKey = 'user5'; // 상점에서 고객을 구분하기 위해 발급한 고객의 고유 ID로 변경하세요.
+const customerKey = 'user_2'; // 상점에서 고객을 구분하기 위해 발급한 고객의 고유 ID로 변경하세요.
 
 // brandpay 초기화
 const brandpay = BrandPay(clientKey, customerKey, {
@@ -34,12 +34,13 @@ async function initialize() {
   });
 }
 
-document
-  .querySelector('#payment-form')
-  .addEventListener('submit', handleSubmit);
-
-document.querySelector('#button').addEventListener('click', updateAmount);
-document.querySelector('#button2').addEventListener('click', handleSubmit2);
+// document
+//   .querySelector('#payment-form')
+//   .addEventListener('submit', handleSubmit);
+// document.querySelector('#button').addEventListener('click', updateAmount);
+// document.querySelector('#button2').addEventListener('click', handleSubmit2);
+document.querySelector('#addPaymentMethod1').addEventListener('click', addPaymentMethod1);
+document.querySelector('#addPaymentMethod2').addEventListener('click', addPaymentMethod2);
 
 // 결제 금액 업데이트
 async function updateAmount(e) {
@@ -78,6 +79,34 @@ async function handleSubmit2(e) {
         console.log(error)
         if (error.code === 'USER_CANCEL') {
           // 사용자가 창을 닫아 취소한 경우에 대한 처리
+        }
+      })
+}
+// 카드에 대한 결제수단 등록
+async function addPaymentMethod2(e) {
+  console.log("asf")
+  brandpay
+      .addPaymentMethod('카드')
+      .then(function (methods) {
+        // 성공 처리
+      })
+      .catch(function (error) {
+        if (error.code === 'USER_CANCEL') {
+          // 사용자가 결제창을 닫은 경우 에러 처리
+        }
+      })
+}
+// 계좌에 대한 결제수단 등록
+async function addPaymentMethod1(e) {
+  console.log("asf")
+  brandpay
+      .addPaymentMethod('계좌')
+      .then(function (methods) {
+        // 성공 처리
+      })
+      .catch(function (error) {
+        if (error.code === 'USER_CANCEL') {
+          // 사용자가 결제창을 닫은 경우 에러 처리
         }
       })
 }
